@@ -1,0 +1,105 @@
+
+<div class="searchForm">
+    <div [ngStyle]="{'color':success!==false?'green':'red' }">{{message}}</div>
+   <div class="row">
+       <div class="col-md-10 mx-auto">
+           <form [formGroup]="userForm" (ngSubmit)="addTaskDetail()">
+               <input type="hidden" required class="form-control"  formControlName="userId">
+                              
+               <div class="form-group row">
+                 <div class="col-sm-6">
+                     <label for="fName">First Name</label>
+                     <input type="text" required class="form-control" id="fName" formControlName="firstName" placeholder="Enter First name...">
+                 </div>                          
+               </div>
+               <div class="form-group row">
+                 <div class="col-sm-6">
+                     <label for="lName">Last Name</label> <Br/>
+                     <input type="text" required class="form-control" id="lName" formControlName="lastName" placeholder="Enter Last name...">
+                    
+                 </div>
+               </div>
+               <div class="form-group row">
+                   <div class="col-sm-6">
+                       <label for="empId">Employee ID</label>
+                       <input type="text" required id="empId" class="form-control" formControlName="employeeId" placeholder="Enter parent task...">
+                   </div>                          
+               </div>
+               <div *ngIf="flow==='ADD'; then thenBlock else elseBlock"></div>
+                   <ng-template #thenBlock>
+                       <div class="form-group row">
+                           <div class="col-sm-3">
+                               <button type="button" class="btn btn-primary px-4 float-right" (click)="addUser()">Save</button>
+                           </div> 
+                           <div class="col-sm-3">
+                               <button type="button" class="btn btn-primary px-4 float-right" (click)="resetForm()">Reset</button>
+                           </div>
+                       </div>
+                   </ng-template>
+                   <ng-template #elseBlock>
+                       <div class="form-group row">
+                           <div class="col-sm-3">
+                               <button type="button" class="btn btn-primary px-4 float-right" (click)="updateUser()">Update</button>
+                           </div>
+                       </div> 
+                   </ng-template>                     
+           </form>
+       </div>
+   </div>     
+</div>
+<div class="resultFilter"> 
+        <div class="row">
+                <div class="col-sm-5 col-md-2 mx-auto">
+                        <input type="text" name="fsd" />
+                </div>
+                <div class="col-sm-5 col-md-2 mx-auto">
+                        Sort By
+                </div>
+                <div class="col-sm-5 col-md-2 mx-auto">
+                        Name
+                </div>
+                <div class="col-sm-5 col-md-2 mx-auto">
+                        Employee Id
+                </div>
+        </div>
+</div>
+<div class="viewResults">     
+    <div class="row">
+        <div class="list-group col-md-10 mx-auto">     
+            <mat-list>
+                <mat-list-item *ngFor="let user of userList">                     
+
+                    <div class="list-group-item">                     
+                        <div class="row">             
+                                <div class="col-md-5 mx-auto">
+                                    <div class="row">
+                                            <div class="col-md-2 mx-auto">
+                                                Name: {{user.firstName}}  {{user.lastName}}
+                                            </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-md-5 mx-auto">
+                                                Employee Id: {{user.employeeId}}
+                                            </div>
+                                    </div>                                                          
+                                </div>
+                                <div class="col-md-5 mx-auto">
+                                        <div class="row">
+                                                <div class="col-md-5 mx-auto">
+                                                    <a routerLinkActive="active" (click)="endTaskDetail(user.userId)">End Task</a>   
+                                                </div>                                                                              
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-md-5 mx-auto">
+                                                    <a routerLinkActive="active" (click)="endTaskDetail(user.userId)">End Task</a>   
+                                                </div>                                                                              
+                                        </div>
+                                </div>   
+                            </div>  
+                    </div>         
+                    <mat-divider></mat-divider>        
+                </mat-list-item>
+            </mat-list> 
+        </div> 
+    </div>   
+</div>

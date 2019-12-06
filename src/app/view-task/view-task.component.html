@@ -1,0 +1,93 @@
+<div class="viewSearch">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <form  [formGroup]="taskSearchForm" (ngSubmit)="searchTaskDetails()">
+                <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="taskName">Task Name</label>
+                            <input type="text" class="form-control" id="taskName" formControlName="taskName" placeholder="Task name">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="parentTask">Parent Task</label>
+                            <input type="text" class="form-control" id="parentTask" formControlName="parentTask" placeholder="Parent Task name">
+                        </div>
+                </div>
+                <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="PriorityFrom">Priority From</label>
+                            <input type="text" class="form-control" id="PriorityFrom" formControlName="taskPriorityFrom" placeholder="Priority From">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="PriorityTo">Priority To</label>
+                            <input type="text" class="form-control" id="PriorityTo" formControlName="taskPriorityTo" placeholder="Priority To">
+                        </div>
+                </div>
+                <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="taskStDate">From Date</label>
+                            <input type="date" class="form-control" id="taskStDate" formControlName="taskStartDt" placeholder="From Date">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="taskEdDate">To Date</label>
+                            <input type="date" class="form-control" id="taskEdDate" formControlName="taskEndDt" placeholder="To Date">
+                        </div>                        
+                </div>                
+                <button type="button" class="btn btn-primary px-4 float-right" (click)="searchTaskDetails()">Search</button>
+                <button type="button" class="btn btn-primary px-4 float-right" (click)="clearTaskSearch()">Cancel</button>
+            </form>
+        </div>
+    </div>    
+</div>
+<div css="viewResults">
+    <mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="Task Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Task Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.taskName}} </mat-cell>
+        </ng-container>
+    
+        <!-- Progress Column -->
+        <ng-container matColumnDef="Parent Task">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Parent Task </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{null!=row.parentTask && row.parentTask.taskName || 'NA'}} </mat-cell>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="Priority">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Priority </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.taskPriority}} </mat-cell>
+        </ng-container>
+    
+        <!-- Color Column -->
+        <ng-container matColumnDef="Start Date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+            <mat-cell *matCellDef="let row" > {{row.taskStartDt|date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="End Date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
+            <mat-cell *matCellDef="let row" > {{row.taskEndDt|date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="Actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color"> 
+                <a routerLinkActive="active" [ngStyle]="{'display':row.status!=='INP'?'none':'block' }" [routerLink]="['/editTask',row.taskId]">Edit Task</a> &nbsp; &nbsp;
+                <a routerLinkActive="active" (click)="endTaskDetail(row.taskId)">End Task</a>                            
+            </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+     </mat-table>
+    
+     <mat-paginator [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>   
+
+</div>

@@ -1,0 +1,22 @@
+.searchForm,.viewResults  {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.726); 
+    padding: 10px 10px 5px 10px;
+  }
+
+  .resultFilter {
+    padding: 5px 1px 1px 0px;
+  }
+
+
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  display: block;  
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  padding: 0;
+  height: unset;
+}
+
+.list-group-item {
+  border: 0;
+}

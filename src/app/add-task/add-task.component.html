@@ -1,0 +1,65 @@
+<!-- Tab content -->
+<div class="viewSearch">
+     <div [ngStyle]="{'color':success!==false?'green':'red' }">{{message}}</div>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <form [formGroup]="taskForm" (ngSubmit)="addTaskDetail()">
+                <input type="hidden" required class="form-control"  formControlName="taskId">
+                <input type="hidden" required class="form-control"  formControlName="status" value="INP">
+                 
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                      <label for="tName">Task Name</label>
+                      <input type="text" required class="form-control" id="tName" formControlName="taskName" placeholder="Enter task name...">
+                  </div>                          
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                      <label for="tPriority">Task Priority</label> <Br/>
+                      <mat-slider id="tPriority" required  min="1" max="20" step="1"  formControlName="taskPriority"></mat-slider>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="pTaskName">Parent Task</label>
+                        <input type="text" required id="pTaskName" class="form-control" formControlName="taskParent" placeholder="Enter parent task...">
+                    </div>                          
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="formDate">From Date</label>
+                        <input type="date" required id="formDate" class="form-control" formControlName="taskStartDt" placeholder="Your Start date...">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="toDate">To Date</label>
+                        <input type="date" required id="toDate" class="form-control" formControlName="taskEndDt" placeholder="Your Start date...">
+                    </div>                        
+                </div>  
+
+                <div *ngIf="flow==='ADD'; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-primary px-4 float-right" (click)="addTaskDetail()">Save</button>
+                            </div> 
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-primary px-4 float-right" (click)="resetTaskForm()">Reset</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-primary px-4 float-right" (click)="updateTaskDetail()">Update</button>
+                            </div>
+                        </div> 
+                    </ng-template>
+
+                          
+                               
+            </form>
+        </div>
+    </div>     
+</div>
