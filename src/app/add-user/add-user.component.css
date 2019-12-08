@@ -22,7 +22,12 @@
   width: 25%;
 }
 
-.resultBox{
-  border: black;
+.fillColor{
   background-color:beige;
+}
+
+
+.resultBox{
+  border: black;  
+  border-bottom:1px dotted black;
 }

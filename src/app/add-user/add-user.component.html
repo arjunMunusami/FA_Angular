@@ -49,20 +49,20 @@
 </div>
 <div class="resultFilter"> 
         <div class="row">
-            <div class="col-lg-12 mx-auto">
-                <div class="col-sm-4">
+            <div class="col-sm-11 col-md-11 col-lg-11 mx-auto">
+                <div class="col-sm-3 col-md-3 col-lg-3">
                         <input type="text" name="fsd" />
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-md-2 col-lg-2">
                         Sort By
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-md-2 col-lg-2">
                        First Name
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-md-2 col-lg-2">
                        Last Name
                  </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-md-2 col-lg-2">
                         Employee Id
                 </div>
             </div>
@@ -70,19 +70,21 @@
 </div>
 <div class="viewResults">                        
     
-    <div class="list-group  row resultBox" *ngFor="let user of userList">  
-        <div class="floatLeft">                    
-            <div class="list-group-item">First Name: {{user.firstName}} </div> 
-            <div class="list-group-item">Last Name: {{user.lastName}} </div> 
-            <div class="list-group-item">Employee ID: {{user.employeeId}} </div> 
-        </div>
-        <div class="floatLeft">                    
-                <div class="list-group-item"> 
-                     <a routerLinkActive="active" [routerLink]="['/editTask',user.userId]">Edit</a>
-                </div> 
-                <div class="list-group-item"> 
-                    <a routerLinkActive="active" (click)="endTaskDetail(user.userId)">Delete</a> 
-                </div>                
-        </div>        
+    <div class="list-group  row" *ngFor="let user of userList">  
+        <div class="col-sm-12 col-md-10 col-lg-8 resultBox">
+            <div class="list-group col-sm-8 col-md-8 col-lg-6 mx-auto fillColor">                    
+                <div class="list-group-item">First Name: {{user.firstName}} </div> 
+                <div class="list-group-item">Last Name: {{user.lastName}} </div> 
+                <div class="list-group-item">Employee ID: {{user.employeeId}} </div> 
+            </div>
+            <div class="list-group col-sm-4 col-md-2 col-lg-2 mx-auto">                    
+                    <div class="list-group-item"> 
+                        <a routerLinkActive="active" [routerLink]="['/editTask',user.userId]">Edit</a>
+                    </div> 
+                    <div class="list-group-item"> 
+                        <a routerLinkActive="active" (click)="endTaskDetail(user.userId)">Delete</a> 
+                    </div>                
+            </div> 
+         </div>       
     </div>   
 </div>
