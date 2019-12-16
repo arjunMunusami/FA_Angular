@@ -1,0 +1,178 @@
+
+<div class="searchForm">
+    <div [ngStyle]="{'color':success!==false?'green':'red' }">{{message}}</div>
+   <div class="row">
+       <div class="col-md-10 mx-auto">
+           <form [formGroup]="projectForm">
+               <input type="hidden" required class="form-control"  formControlName="projectId">
+                              
+               <div class="form-group row">
+                 <div class="col-sm-6">
+                     <label for="fName">Project Name</label>
+                     <input type="text" required class="form-control" id="fName" formControlName="projectName" placeholder="Enter First name...">
+                 </div>                          
+               </div>
+               <div class="form-group row">
+                 <div class="col-sm-6">                                       
+                     <input type="checkbox" name="prjDtEnb" [checked]="isPrjDtEnb" [value]="isPrjDtEnb" (click)=toggleProjectDt() /> Set Start date and End Date                 
+                 </div>        
+               </div>
+            <div class="form-group row">
+               <div class="col-sm-6">  
+                    <label for="fName">Start Date</label>
+                    <input type="date" required class="form-control"  formControlName="startDt" placeholder="Start Date">
+               </div>
+            </div>
+            <div class="form-group row">
+                    <div class="col-sm-6">  
+                         <label for="fName">End Date</label>
+                         <input type="date" required class="form-control"  formControlName="endDt" placeholder="End Date">
+                    </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">  
+                     <label for="fName">Priority</label>
+                     <input type="range" style="box-shadow:unset;" required class="form-control" formControlName="priority" size="10">
+                </div>
+            </div>
+             
+               <div class="form-group row">
+                   <div class="col-sm-6">
+                       <label for="empId">Manager</label>
+                       <input type="text" required id="empId" class="form-control" formControlName="managerName" placeholder="Manager Name!">
+                       <input type="hidden" required id="empId" class="form-control" formControlName="managerId" >
+                   </div> 
+                   <div class="col-sm-6">
+                        <div class="oval" (click)="loadUserData()" data-toggle="modal" data-target="#myModal">search</div>                       
+                    </div>                          
+               </div>
+               <div *ngIf="flow==='ADD'; then thenBlock else elseBlock"></div>
+                   <ng-template #thenBlock>
+                       <div class="form-group row">
+                           <div class="col-sm-3">
+                               <button type="button" class="btn btn-primary px-4 float-right" (click)="addProject()">Save</button>
+                           </div> 
+                           <div class="col-sm-3">
+                               <button type="button" class="btn btn-primary px-4 float-right" (click)="resetForm()">Reset</button>
+                           </div>
+                       </div>
+                   </ng-template>
+                   <ng-template #elseBlock>
+                       <div class="form-group row">
+                           <div class="col-sm-3">
+                               <button type="button" class="btn btn-primary px-4 float-right" (click)="updateUser()">Update</button>
+                           </div>
+                       </div> 
+                   </ng-template>                     
+           </form>
+       </div>
+   </div>     
+</div>
+<div class="resultFilter"> 
+        <div class="row">
+            <div class="col-sm-11 col-md-11 col-lg-11 mx-auto">
+                <div class="col-sm-3 col-md-3 col-lg-2">
+                        <input type="text" name="searchPrj"  [(ngModel)]="srchProject"/>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                       Sort By
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                     <button (click)="sortByResult('startDt')" value="Start Date">Start Date</button>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button (click)="sortByResult('endDt')" value="End Date">End Date</button>
+                 </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button (click)="sortByResult('name')" value="Priority">Priority</button>  
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button (click)="sortByResult('')" value="Completed">Completed</button>  
+                </div>
+            </div>
+        </div>
+</div>
+<div class="viewResults">       
+    
+    <div class="list-group  row" *ngFor="let project of projectList | orderBy:[sortBy] | filter : srchProject">  
+        <div class="col-sm-12 col-md-10 col-lg-10 resultBox">
+            <div class="list-group col-sm-8 col-md-8 col-lg-6 mx-auto fillColor">   
+                <div class="row">  
+                    <div class="list-group col-sm-8 col-md-8 col-lg-6 mx-auto">               
+                        <div class="list-group-item">Project : {{project.name}} </div>
+                    </div>
+                </div>
+                <div class="row">  
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                    </div>
+                </div>
+                <div class="row">  
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                    </div>
+                </div>              
+            </div>           
+            <div class="list-group col-sm-4 col-md-2 col-lg-2 mx-auto fillColor VL ">   
+                <div class="row">  
+                    <div class="list-group col-sm-8 col-md-8 col-lg-6 mx-auto">               
+                        <div class="list-group-item">Priority</div>
+                    </div>
+                </div>                 
+                <div class="row">  
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">&nbsp;</div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">&nbsp;</div>                        
+                    </div>
+                </div>
+                <div class="row">  
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">&nbsp;</div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">&nbsp;</div>                        
+                    </div>
+                </div>               
+            </div> 
+            <div class="list-group col-sm-4 col-md-2 col-lg-2 mx-auto VL">                    
+                    <div class="list-group-item"> 
+                        <a routerLinkActive="active" [routerLink]="['/editTask',project.projectId]">Edit</a>
+                    </div> 
+                    <div class="list-group-item"> 
+                        <a routerLinkActive="active" (click)="endTaskDetail(project.projectId)">Delete</a> 
+                    </div>                
+            </div> 
+         </div>       
+    </div>   
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">User Search</h4>
+        </div>
+        <div class="modal-body">          
+          <input [(ngModel)]="searchText" placeholder="search user....">
+          <div class="list-group">
+                <a (click)="selectUserData(user)" style="cursor: pointer;" class="list-group-item list-group-item-action" 
+                        *ngFor="let user of userList | filter : searchText">
+                    {{user.firstName}} {{user.lastName}}
+                </a>
+          </div>           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

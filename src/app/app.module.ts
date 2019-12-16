@@ -18,13 +18,17 @@ import { DatePipe } from '@angular/common';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { AddUserComponent } from './add-user/add-user.component';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { OrderByPipe } from './orderby/OrderByPipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     AddTaskComponent,
     ViewTaskComponent,
     AddProjectComponent,
-    AddUserComponent
+    AddUserComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     MatPaginatorModule,
     MatSortModule,MatTableModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,Ng2SearchPipeModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

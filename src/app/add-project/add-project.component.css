@@ -2,3 +2,54 @@
     border-bottom: 1px solid rgba(204, 204, 204, 0.726); 
     padding: 20px 20px 10px 20px;
   }
+
+  .oval {
+    width: 80px;
+    height: 60px;
+    background: #ede9df;
+    border-radius: 100px / 50px;
+    padding: 20px 0px 0px 15px;
+    cursor: pointer;
+  }
+
+  .viewResults {
+    padding: 10px 10px 5px 10px;
+  }
+
+  .resultFilter {
+    padding: 5px 1px 1px 0px;
+  }
+
+
+.list-group-item {
+  border: 0;
+  background-color:unset;
+  padding: 0px 0px 0px 20px;
+  }
+
+.floatLeft{
+  float: left;
+  width: 25%;
+}
+
+.fillColor{
+  background-color:beige;
+}
+
+.resultBox{
+  border: black;  
+  border-bottom:1px dotted black;
+}
+
+.moveLeft {
+  padding-left: 10px;
+}
+
+.VL {
+  border-left: 2px solid white;
+}
+
+.list-group {
+  padding-left: 0;
+  margin-bottom: 4px;
+}
