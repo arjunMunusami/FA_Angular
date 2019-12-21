@@ -2,8 +2,8 @@ import { Component, OnInit ,Output } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms'
 import {TskMgmServiceService} from '../service/tsk-mgm-service.service'
 import {TaskDetail} from '../model/TaskDetailVO';
-import {ActivatedRoute, ParamMap} from "@angular/router";
 import {TaskResult} from '../model/TaskResultVO';
+import {ActivatedRoute, ParamMap} from "@angular/router";
 import { DatePipe } from '@angular/common';
 
 @Component({

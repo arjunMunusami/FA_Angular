@@ -44,7 +44,7 @@ export class AddProjectComponent implements OnInit {
     });
 
     this.flow = 'ADD';
-
+    
   }
 
   toggleProjectDt(){
@@ -83,12 +83,12 @@ export class AddProjectComponent implements OnInit {
     let user = new UserVO();
     user.firstName = 'Arjun';
     user.lastName='Munusamy';
-    user.employeeId='asd';
+    user.emplID='asd';
 
     let user1 = new UserVO();
     user1.firstName = 'Arjun123';
     user1.lastName='Munusamy123';
-    user1.employeeId='asd123';
+    user1.emplID='asd123';
 
     this.userList.push(user);
     this.userList.push(user1);
@@ -96,7 +96,7 @@ export class AddProjectComponent implements OnInit {
 
   selectUserData(user:UserVO){
     console.log(user);
-    this.projectForm.get("managerId").setValue(user.employeeId);
+    this.projectForm.get("managerId").setValue(user.emplID);
     this.projectForm.get("managerName").setValue(user.lastName+' '+user.firstName);    
   }
 

@@ -1,7 +1,8 @@
 export class UserVO {
 
+    userId:Number;
     firstName:String;
     lastName:String;
-    employeeId:String;
+    emplID:String;
 
 }
