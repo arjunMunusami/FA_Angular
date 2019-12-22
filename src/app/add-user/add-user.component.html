@@ -3,33 +3,50 @@
     <div [ngStyle]="{'color':success!==false?'green':'red' }">{{message}}</div>
    <div class="row">
        <div class="col-md-10 mx-auto">
-           <form [formGroup]="userForm" (ngSubmit)="addTaskDetail()">
+           <form [formGroup]="userForm" (ngSubmit)="addTaskDetail()"  #formDir="ngForm">
                <input type="hidden" required class="form-control"  formControlName="userId">
                               
                <div class="form-group row">
                  <div class="col-sm-6">
                      <label for="fName">First Name</label>
-                     <input type="text" required class="form-control" id="fName" formControlName="firstName" placeholder="Enter First name...">
-                 </div>                          
+                     <input type="text" required class="form-control"
+                       id="fName" formControlName="firstName" placeholder="Enter First name...">
+                 </div>  
+                 <div *ngIf="f.firstName.invalid && (f.firstName.dirty || f.firstName.touched)" class="alert alert-danger">
+                    <div *ngIf="f.firstName.errors.required">
+                          Name is required.
+                     </div>
+                 </div>
                </div>
+          
                <div class="form-group row">
                  <div class="col-sm-6">
                      <label for="lName">Last Name</label> <Br/>
                      <input type="text" required class="form-control" id="lName" formControlName="lastName" placeholder="Enter Last name...">
                     
                  </div>
+                 <div *ngIf="f.lastName.invalid && (f.lastName.dirty || f.lastName.touched)" class="alert alert-danger">
+                    <div *ngIf="f.lastName.errors.required">
+                          lastname is required.
+                     </div>
+                 </div>
                </div>
                <div class="form-group row">
                    <div class="col-sm-6">
                        <label for="empId">Employee ID</label>
                        <input type="text" required id="empId" class="form-control" formControlName="employeeId" placeholder="Enter Employee Id...">
-                   </div>                          
+                   </div>
+                   <div *ngIf="f.employeeId.invalid && (f.employeeId.dirty || f.employeeId.touched)" class="alert alert-danger">
+                    <div *ngIf="f.employeeId.errors.required">
+                          Employee Id is required.
+                     </div>
+                 </div>                          
                </div>
                <div *ngIf="flow==='ADD'; then thenBlock else elseBlock"></div>
                    <ng-template #thenBlock>
                        <div class="form-group row">
                            <div class="col-sm-3">
-                               <button type="button" class="btn btn-primary px-4 float-right" (click)="addUser()">Save</button>
+                               <button type="button"  [disabled]="userForm.invalid" class="btn btn-primary px-4 float-right" (click)="addUser()">Save</button>
                            </div> 
                            <div class="col-sm-3">
                                <button type="button" class="btn btn-primary px-4 float-right" (click)="resetForm()">Reset</button>

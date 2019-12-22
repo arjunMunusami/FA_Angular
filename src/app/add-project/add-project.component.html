@@ -9,7 +9,7 @@
                <div class="form-group row">
                  <div class="col-sm-6">
                      <label for="fName">Project Name</label>
-                     <input type="text" required class="form-control" id="fName" formControlName="projectName" placeholder="Enter First name...">
+                     <input type="text" required  class="form-control" id="fName" formControlName="projectName" placeholder="Enter First name...">
                  </div>                          
                </div>
                <div class="form-group row">
@@ -31,19 +31,20 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-6">  
-                     <label for="fName">Priority</label>
-                     <input type="range" style="box-shadow:unset;" required class="form-control" formControlName="priority" size="10">
+                     <label for="priorityId">Priority - {{f.priority.value}}</label>
+                     <input type="range" id="priorityId" name="pId" style="box-shadow:unset;" min="0" max="30" value="10" required class="form-control" formControlName="priority" size="10">
+                     
                 </div>
             </div>
              
                <div class="form-group row">
                    <div class="col-sm-6">
                        <label for="empId">Manager</label>
-                       <input type="text" required id="empId" class="form-control" formControlName="managerName" placeholder="Manager Name!">
+                       <input type="text" required id="empId" disabled class="form-control" formControlName="managerName" placeholder="Manager Name!">
                        <input type="hidden" required id="empId" class="form-control" formControlName="managerId" >
                    </div> 
                    <div class="col-sm-6">
-                        <div class="oval" (click)="loadUserData()" data-toggle="modal" data-target="#myModal">search</div>                       
+                        <div class="oval" (click)="loadUserData('firstName')" data-toggle="modal" data-target="#myModal">search</div>                       
                     </div>                          
                </div>
                <div *ngIf="flow==='ADD'; then thenBlock else elseBlock"></div>
@@ -78,23 +79,23 @@
                        Sort By
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                     <button (click)="sortByResult('startDt')" value="Start Date">Start Date</button>
+                     <button (click)="sortByResult('startDate')" value="Start Date">Start Date</button>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <button (click)="sortByResult('endDt')" value="End Date">End Date</button>
+                    <button (click)="sortByResult('endDate')" value="End Date">End Date</button>
                  </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <button (click)="sortByResult('name')" value="Priority">Priority</button>  
+                    <button (click)="sortByResult('priority')" value="Priority">Priority</button>  
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <button (click)="sortByResult('')" value="Completed">Completed</button>  
+                    <button (click)="sortByResult('Completed')" value="Completed">Completed</button>  
                 </div>
             </div>
         </div>
 </div>
 <div class="viewResults">       
     
-    <div class="list-group  row" *ngFor="let project of projectList | orderBy:[sortBy] | filter : srchProject">  
+    <div class="list-group  row" *ngFor="let project of projectList | filter : srchProject">  
         <div class="col-sm-12 col-md-10 col-lg-10 resultBox">
             <div class="list-group col-sm-8 col-md-8 col-lg-6 mx-auto fillColor">   
                 <div class="row">  
@@ -102,22 +103,36 @@
                         <div class="list-group-item">Project : {{project.name}} </div>
                     </div>
                 </div>
+                
                 <div class="row">  
                     <div class="list-group col-sm-4 col-md-4 col-lg-3">
-                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                        <div class="list-group-item">No of Task: </div>                        
                     </div>
                     <div class="list-group col-sm-4 col-md-4 col-lg-3">
-                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                        <div class="list-group-item">{{project.taskCnt}} </div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">Completed Task: </div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">{{project.taskCmpCnt}} </div>                        
                     </div>
                 </div>
                 <div class="row">  
                     <div class="list-group col-sm-4 col-md-4 col-lg-3">
-                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                        <div class="list-group-item"> Start Date: </div>                        
                     </div>
                     <div class="list-group col-sm-4 col-md-4 col-lg-3">
-                        <div class="list-group-item">No of Task : {{project.taskCnt}} </div>                        
+                        <div class="list-group-item"> {{project.startDate|date:'dd/MM/yyyy'}} </div>                        
                     </div>
-                </div>              
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item">End Date:  </div>                        
+                    </div>
+                    <div class="list-group col-sm-4 col-md-4 col-lg-3">
+                        <div class="list-group-item"> {{project.endDate|date:'dd/MM/yyyy'}} </div>                        
+                    </div>
+                </div>
+                              
             </div>           
             <div class="list-group col-sm-4 col-md-2 col-lg-2 mx-auto fillColor VL ">   
                 <div class="row">  
@@ -138,16 +153,16 @@
                         <div class="list-group-item">&nbsp;</div>                        
                     </div>
                     <div class="list-group col-sm-4 col-md-4 col-lg-3">
-                        <div class="list-group-item">&nbsp;</div>                        
+                        <div class="list-group-item">{{project.priority}}</div>                        
                     </div>
                 </div>               
             </div> 
-            <div class="list-group col-sm-4 col-md-2 col-lg-2 mx-auto VL">                    
-                    <div class="list-group-item"> 
-                        <a routerLinkActive="active" [routerLink]="['/editTask',project.projectId]">Edit</a>
+            <div class="list-group col-sm-4 col-md-2 col-lg-2 mx-auto VL" [ngStyle]="{'display':project.status!=='INP'?'none':'block' }">                    
+                    <div class="list-group-item" > 
+                        <a routerLinkActive="active" (click)="editProjectDetail(project.id)">Edit</a>
                     </div> 
                     <div class="list-group-item"> 
-                        <a routerLinkActive="active" (click)="endTaskDetail(project.projectId)">Delete</a> 
+                        <a routerLinkActive="active" (click)="suspendPrjDetails(project.id)">Suspend</a> 
                     </div>                
             </div> 
          </div>       

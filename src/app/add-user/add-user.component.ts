@@ -37,11 +37,9 @@ export class AddUserComponent implements OnInit {
 
     this.userForm = new FormGroup({
       userId: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl('',[
-        Validators.required
-      ]),
-      employeeId: new FormControl('')
+      firstName: new FormControl('',[ Validators.required ]),
+      lastName: new FormControl('',[ Validators.required ]),
+      employeeId: new FormControl('',[ Validators.required ])
      
     });
 
@@ -64,7 +62,7 @@ export class AddUserComponent implements OnInit {
         this.message="Successfully saved the data!";
         //console.log(taskDetail);
         this.sortUserDetails('firstName');
-        this.resetTaskForm();
+        this.resetForm();
       },
       (error)=>{
         this.success=false;
@@ -150,10 +148,10 @@ export class AddUserComponent implements OnInit {
 
   }
 
-  resetTaskForm() {
+  resetForm() {
     this.userForm.reset();
   }
 
-
+  get f() { return this.userForm.controls; }
 
 }

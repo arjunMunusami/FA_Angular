@@ -6,7 +6,20 @@
             <form [formGroup]="taskForm" (ngSubmit)="addTaskDetail()">
                 <input type="hidden" required class="form-control"  formControlName="taskId">
                 <input type="hidden" required class="form-control"  formControlName="status" value="INP">
-                 
+                <input type="hidden" required class="form-control" id="prjId" formControlName="prjId">
+                <input type="hidden" required class="form-control" id="prtTaskId" formControlName="prtTaskId">
+                <input type="hidden" required class="form-control" id="usrId" formControlName="usrId">
+                
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                     
+                        <label for="prjName">Project</label>
+                        <input type="text" disabled required class="form-control" id="prjName" formControlName="prjName" placeholder="Enter task name...">
+                    </div> 
+                    <div class="col-sm-6">
+                        <div class="oval" (click)="loadProjectData('name')" data-toggle="modal" data-target="#myProjModal">search</div>                       
+                    </div>                          
+                </div>  
                 <div class="form-group row">
                   <div class="col-sm-6">
                       <label for="tName">Task Name</label>
@@ -14,16 +27,24 @@
                   </div>                          
                 </div>
                 <div class="form-group row">
+                  <div class="col-sm-6">                                       
+                      <input type="checkbox" name="prjDtEnb" formControlName="isParent" (click)=toggleTaskDt() /> Parent Task                
+                  </div>        
+                </div>
+                <div class="form-group row">
                   <div class="col-sm-6">
-                      <label for="tPriority">Task Priority</label> <Br/>
-                      <mat-slider id="tPriority" required  min="1" max="20" step="1"  formControlName="taskPriority"></mat-slider>
+                    <label for="tPriority">Priority - {{f.taskPriority.value}}</label>
+                    <input type="range" id="tPriority" name="pId" style="box-shadow:unset;" min="0" max="30" value="10" required class="form-control" formControlName="taskPriority" size="20">
                   </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="pTaskName">Parent Task</label>
-                        <input type="text" required id="pTaskName" class="form-control" formControlName="taskParent" placeholder="Enter parent task...">
-                    </div>                          
+                        <input type="text" disabled required id="pTaskName" class="form-control" formControlName="prtTaskName" placeholder="Enter parent task...">
+                    </div>    
+                    <div class="col-sm-6">
+                        <div class="oval" (click)="loadParentTaskData()" data-toggle="modal" data-target="#myPtaskModal">search</div>                       
+                    </div>                         
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
@@ -37,6 +58,15 @@
                         <input type="date" required id="toDate" class="form-control" formControlName="taskEndDt" placeholder="Your Start date...">
                     </div>                        
                 </div>  
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="usrName">User</label>
+                        <input type="text" required disabled class="form-control" id="usrName" formControlName="usrName" placeholder="Enter task name...">
+                    </div> 
+                    <div class="col-sm-6">
+                        <div class="oval" (click)="loadUserData('firstName')" data-toggle="modal" data-target="#myUsrModal">search</div>                       
+                    </div>                          
+                </div> 
 
                 <div *ngIf="flow==='ADD'; then thenBlock else elseBlock"></div>
                     <ng-template #thenBlock>
@@ -55,11 +85,78 @@
                                 <button type="button" class="btn btn-primary px-4 float-right" (click)="updateTaskDetail()">Update</button>
                             </div>
                         </div> 
-                    </ng-template>
-
-                          
-                               
+                    </ng-template>                     
             </form>
         </div>
     </div>     
 </div>
+
+<div class="modal fade" id="myUsrModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">User Search</h4>
+        </div>
+        <div class="modal-body">          
+          <input [(ngModel)]="searchUserText" placeholder="search user....">
+          <div class="list-group">
+                <a (click)="selectUserData(user)" style="cursor: pointer;" class="list-group-item list-group-item-action" 
+                        *ngFor="let user of userList | filter : searchUserText">
+                    {{user.firstName}} {{user.lastName}}
+                </a>
+          </div>           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myProjModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Project Search</h4>
+        </div>
+        <div class="modal-body">          
+          <input [(ngModel)]="searchProjectText" placeholder="search Project....">
+          <div class="list-group">
+                <a (click)="selectProjectData(project)" style="cursor: pointer;" class="list-group-item list-group-item-action" 
+                        *ngFor="let project of projectList | filter : searchProjectText">
+                    {{project.name}}
+                </a>
+          </div>           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myPtaskModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Parent Task Search</h4>
+        </div>
+        <div class="modal-body">          
+          <input [(ngModel)]="searchPrtTaskText" placeholder="search Parent Task....">
+          <div class="list-group">
+                <a (click)="selectParentTaskData(prtTask)" style="cursor: pointer;" class="list-group-item list-group-item-action" 
+                        *ngFor="let prtTask of prtTaskList | filter : searchPrtTaskText">
+                    {{prtTask.name}}
+                </a>
+          </div>           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>

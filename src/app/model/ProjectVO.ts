@@ -8,5 +8,6 @@ export class Project {
     endDate : Date;
     priority : Number;
     manager: UserVO;
-    projectId: number;
+    id: number;
+    status: String;
 }

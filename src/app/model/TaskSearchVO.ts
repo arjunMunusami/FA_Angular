@@ -6,5 +6,6 @@ export class TaskSearch {
     taskPriorityTo : number;
     taskStartDate : Date;
     taskEndDate: Date;
+    projectId: number;
     
 }

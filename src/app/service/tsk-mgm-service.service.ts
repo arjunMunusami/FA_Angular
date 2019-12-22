@@ -22,12 +22,16 @@ export class TskMgmServiceService {
   }
 
 
-  searchTask(taskSearch:TaskSearch):Observable<any>{   
-    return this.httpClient.post('http://localhost:8080/task/searchTask',taskSearch);
+  searchTask(taskSearch:TaskSearch,orderField:String):Observable<any>{   
+    return this.httpClient.post('http://localhost:8080/task/searchTask/'+orderField,taskSearch);
   }
 
   loadTaskDetail(taskId:String):Observable<any>{
     return this.httpClient.get('http://localhost:8080/task/loadTask?taskId='+taskId);
+  }
+
+  loadPrtTask():Observable<any>{
+    return this.httpClient.get('http://localhost:8080/task/loadPrtTask');
   }
 
   endTaskDetail(taskId:String):Observable<any>{

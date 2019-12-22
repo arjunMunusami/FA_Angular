@@ -1,4 +1,9 @@
 
+import { Project } from './ProjectVO';
+import { UserVO } from './UserVO';
+import { ParentTask } from './ParentTaskVO';
+
+
 export class TaskDetail {
 
 
@@ -6,8 +11,11 @@ export class TaskDetail {
     taskName : String;
     taskPriority : number;
     taskStartDt : Date;
-    taskEndDt:Date;
-    parentTask:TaskDetail;
+    taskEndDt:Date;   
     status:String;
+    project:Project;
+    parentTask:ParentTask;
+    prtTask:Boolean;
+    user:UserVO;
 
 }
