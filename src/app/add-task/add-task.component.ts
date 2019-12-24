@@ -67,9 +67,9 @@ export class AddTaskComponent implements OnInit {
       prtTaskId: new FormControl(''),
       prtTaskName: new FormControl(''),
       prjId: new FormControl(''),
-      prjName: new FormControl(''),
+      prjName: new FormControl('',[Validators.required]),
       usrId: new FormControl(''),
-      usrName: new FormControl(''),
+      usrName: new FormControl('',[Validators.required]),
       status:new FormControl(''),
       isParent:new FormControl('')
     })
@@ -241,8 +241,8 @@ export class AddTaskComponent implements OnInit {
   loadParentTaskData() {
    
     this.tskMgmtService.loadPrtTask().subscribe(
-      (prtTaskList:Array<ParentTask>)=>{        
-        this.prtTaskList = prtTaskList;
+      (prtTaskData)=>{        
+        this.prtTaskList = prtTaskData.projectList;
       },
       (error)=>console.log(error)
       );

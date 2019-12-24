@@ -150,8 +150,15 @@ export class AddUserComponent implements OnInit {
 
   resetForm() {
     this.userForm.reset();
+    
   }
 
-  get f() { return this.userForm.controls; }
+  get userf() { return this.userForm.controls; }
+
+  get firstName() { return this.userForm.get('firstName'); }
+
+  get lastName() { return this.userForm.get('lastName'); }
+
+  get employeeId() { return this.userForm.get('employeeId'); }
 
 }

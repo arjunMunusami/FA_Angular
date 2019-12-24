@@ -3,13 +3,15 @@
     <div [ngStyle]="{'color':success!==false?'green':'red' }">{{message}}</div>
    <div class="row">
        <div class="col-md-10 mx-auto">
-           <form [formGroup]="projectForm">
+           <form [formGroup]="projectForm" #formDir="ngForm" >
                <input type="hidden" required class="form-control"  formControlName="projectId">
                               
                <div class="form-group row">
                  <div class="col-sm-6">
                      <label for="fName">Project Name</label>
-                     <input type="text" required  class="form-control" id="fName" formControlName="projectName" placeholder="Enter First name...">
+                     <input type="text" required 
+                     [ngClass]="{'alert alert-danger':f.projectName.invalid && (f.projectName.dirty || f.projectName.touched),'form-control':true}" 
+                      id="fName" formControlName="projectName" placeholder="Enter First name...">
                  </div>                          
                </div>
                <div class="form-group row">
@@ -51,7 +53,7 @@
                    <ng-template #thenBlock>
                        <div class="form-group row">
                            <div class="col-sm-3">
-                               <button type="button" class="btn btn-primary px-4 float-right" (click)="addProject()">Save</button>
+                               <button type="button"  class="btn btn-primary px-4 float-right" (click)="addProject()">Save</button>
                            </div> 
                            <div class="col-sm-3">
                                <button type="button" class="btn btn-primary px-4 float-right" (click)="resetForm()">Reset</button>

@@ -53,7 +53,7 @@ export class AddProjectComponent implements OnInit {
       ]),
       endDt: new FormControl('',[ Validators.required ]),
       priority: new FormControl('10'),
-      managerId: new FormControl('',[ Validators.required ]),
+      managerId: new FormControl(''),
       managerName: new FormControl('',[ Validators.required ])     
     });
 
